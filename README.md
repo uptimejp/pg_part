@@ -1,6 +1,5 @@
-=================
+
 pg_part extension
-=================
 
 
 About pg_part
@@ -12,7 +11,7 @@ pg_part is a PostgreSQL extension which allows users to manipulate partitioned-t
 SQL Functions
 =============
 
-pg_part extension provies five SQL functions in `pgpart' schema, and these functions are *NOT* relocatable so far.
+pg_part extension provies five SQL functions in `pgpart` schema, and these functions are *NOT* relocatable so far.
 
 
 pgpart.add_partition
@@ -32,8 +31,8 @@ Parameters:
 
 When pgpart.add_partition() function is called, it processes followings:
 
-1. Create a child table inherited from the parent table with check constraint.
-2. Export records to be moved from the parent table.
+1. Create a child table, as a partition, inherited from the parent table with a check constraint.
+2. Export records to be moved from the parent table to the partition.
 3. Delete those (live) records from the parent table.
 4. Import (exported) records into the partition.
 5. Add a primary key to the partition (copied from the parent table).
@@ -44,8 +43,8 @@ Example:
     dbt3=# SELECT pgpart.add_partition(
     dbt3(#   'public',
     dbt3(#   'orders',
-    dbt3(#   'orders_1992',
-    dbt3(#   ' ''1992-01-01'' <= o_orderdate AND o_orderdate < ''1993-01-01'' ',
+    dbt3(#   'orders_1998',
+    dbt3(#   ' ''1998-01-01'' <= o_orderdate AND o_orderdate < ''1999-01-01'' ',
     dbt3(#   '/tmp/orders.tmp');
      add_partition
     ---------------
@@ -72,7 +71,7 @@ Parameters:
 
 Example:
 
-    dbt3=# SELECT pgpart.merge_partition('public', 'orders', 'orders_1992', null, '/tmp/orders.tmp');
+    dbt3=# SELECT pgpart.merge_partition('public', 'orders', 'orders_1998', null, '/tmp/orders.tmp');
      merge_partition
     -----------------
      t
@@ -97,7 +96,11 @@ Parameters:
 
 Example:
 
-    dbt3=# SELECT pgpart.attach_partition('public', 'orders', 'orders_1998', ' ''1998-01-01'' <= o_orderdate AND o_orderdate < ''1999-01-01'' ');
+    dbt3=# SELECT pgpart.attach_partition(
+    dbt3(#   'public',
+    dbt3(#   'orders',
+    dbt3(#   'orders_1998',
+    dbt3(#   ' ''1998-01-01'' <= o_orderdate AND o_orderdate < ''1999-01-01'' ');
      attach_partition
     ------------------
      t
