@@ -5,7 +5,7 @@ pg_part extension
 About pg_part
 =============
 
-pg_part is a PostgreSQL extension which allows users to manipulate partitioned-tables without executing PostgreSQL DDL commands manually.
+pg_part is a PostgreSQL extension, which provides SQL utility functions, to allow users manipulating partitioned-tables without executing PostgreSQL DDL commands directly.
 
 
 SQL Functions
