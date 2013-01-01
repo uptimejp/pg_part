@@ -24,16 +24,11 @@ pgpart.add_partition() function creates new partition, which has specified check
 
 Parameters:
 
-schema_name
-  a schema name which has the table to be parted.
-table_name
-  a table name to be parted.
-partition_name
-  a partition name to be created.
-check_condition
-  a check condition which the partition should have.
-temp_file
-  a temp file name to be used for migrating records (exporting/importing) between the table and the partition.
+- schema_name : a schema name which has the table to be parted.
+- table_name : a table name to be parted.
+- partition_name : a partition name to be created.
+- check_condition : a check condition which the partition should have.
+- temp_file : a temp file name to be used for migrating records (exporting/importing) between the table and the partition.
 
 When pgpart.add_partition() function is called, it processes followings:
 
@@ -69,16 +64,11 @@ pgpart.merge_partition() function merges a partition to the parent table with mo
 
 Parameters:
 
-schema_name
-  a schema name which has the table to be merged.
-table_name
-  a table name to be merged.
-partition_name
-  a partition name to be merged.
-check_condition
-  a check condition which the partition has. (unused)
-temp_file
-  a temp file name to be used for migrating records (exporting/importing) between the table and the partition.
+- schema_name : a schema name which has the table to be merged.
+- table_name : a table name to be merged.
+- partition_name : a partition name to be merged.
+- check_condition : a check condition which the partition has. (unused)
+- temp_file : a temp file name to be used for migrating records (exporting/importing) between the table and the partition.
 
 Example:
 
@@ -100,14 +90,10 @@ pgpart.attach_partition() function allows to attach a child table to the parent 
 
 Parameters:
 
-schema_name
-  a schema name which contains the table.
-table_name
-  a table name which the partition would be attached to.
-partition_name
-  a partition name to be attached.
-check_condition
-  a check condition which the partition should have.
+- schema_name : a schema name which contains the table.
+- table_name : a table name which the partition would be attached to.
+- partition_name : a partition name to be attached.
+- check_condition : a check condition which the partition should have.
 
 Example:
 
@@ -129,12 +115,9 @@ pgpart.detach_partition() function allows to detach a partition from the specifi
 
 Parameters:
 
-schema_name
-  a schema name which contains the table.
-table_name
-  a table name which has a partition to be detached.
-partition_name
-  a partition name to be detached.
+- schema_name : a schema name which contains the table.
+- table_name : a table name which has a partition to be detached.
+- partition_name : a partition name to be detached.
 
 Example:
 
@@ -156,10 +139,8 @@ pgpart.show_partition() function lists partition name(s) which the specified tab
 
 Parameters:
 
-schema_name
-  a schema name which contains the table.
-table_name
-  a table name which has its partition(s).
+- schema_name : a schema name which contains the table.
+- table_name : a table name which has its partition(s).
 
 Example:
 
@@ -178,6 +159,5 @@ Example:
 Author
 ======
 
-Satoshi Nagayasu <snaga@uptime.jp>
-
+    Satoshi Nagayasu <snaga@uptime.jp>
 
