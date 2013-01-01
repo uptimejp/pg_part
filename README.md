@@ -20,9 +20,7 @@ pgpart.add_partition
 
 pgpart.add_partition() function creates new partition, which has specified check condition, from the parent table, and moves records from the parent table to the partition.
 
-::
-
- pgpart.add_partition(schema_name, table_name, partition_name, check_condition, temp_file)
+    pgpart.add_partition(schema_name, table_name, partition_name, check_condition, temp_file)
 
 Parameters:
 
@@ -48,20 +46,18 @@ When pgpart.add_partition() function is called, it processes followings:
 
 Example:
 
-::
-
- dbt3=# SELECT pgpart.add_partition(
- dbt3(#   'public',
- dbt3(#   'orders',
- dbt3(#   'orders_1992',
- dbt3(#   ' ''1992-01-01'' <= o_orderdate AND o_orderdate < ''1993-01-01'' ',
- dbt3(#   '/tmp/orders.tmp');
-  add_partition
- ---------------
-  t
- (1 row)
- 
- dbt3=#
+    dbt3=# SELECT pgpart.add_partition(
+    dbt3(#   'public',
+    dbt3(#   'orders',
+    dbt3(#   'orders_1992',
+    dbt3(#   ' ''1992-01-01'' <= o_orderdate AND o_orderdate < ''1993-01-01'' ',
+    dbt3(#   '/tmp/orders.tmp');
+     add_partition
+    ---------------
+     t
+    (1 row)
+    
+    dbt3=#
 
 
 pgpart.merge_partition
@@ -69,9 +65,7 @@ pgpart.merge_partition
 
 pgpart.merge_partition() function merges a partition to the parent table with moving records in the partition.
 
-::
-
- pgpart.merge_partition(schema_name, table_name, partition_name, check_constraint, temp_file)
+    pgpart.merge_partition(schema_name, table_name, partition_name, check_constraint, temp_file)
 
 Parameters:
 
@@ -88,15 +82,13 @@ temp_file
 
 Example:
 
-::
-
- dbt3=# SELECT pgpart.merge_partition('public', 'orders', 'orders_1992', null, '/tmp/orders.tmp');
-  merge_partition
- -----------------
-  t
- (1 row)
- 
- dbt3=# 
+    dbt3=# SELECT pgpart.merge_partition('public', 'orders', 'orders_1992', null, '/tmp/orders.tmp');
+     merge_partition
+    -----------------
+     t
+    (1 row)
+    
+    dbt3=# 
 
 
 pgpart.attach_partition
@@ -104,9 +96,7 @@ pgpart.attach_partition
 
 pgpart.attach_partition() function allows to attach a child table to the parent table as a partition when both have the same table definition.
 
-::
-
- pgpart.attach_partition(schema_name, table_name, partition_name, check_condition)
+    pgpart.attach_partition(schema_name, table_name, partition_name, check_condition)
 
 Parameters:
 
@@ -121,15 +111,13 @@ check_condition
 
 Example:
 
-::
-
- dbt3=# SELECT pgpart.attach_partition('public', 'orders', 'orders_1998', ' ''1998-01-01'' <= o_orderdate AND o_orderdate < ''1999-01-01'' ');
-  attach_partition
- ------------------
-  t
- (1 row)
- 
- dbt3=# 
+    dbt3=# SELECT pgpart.attach_partition('public', 'orders', 'orders_1998', ' ''1998-01-01'' <= o_orderdate AND o_orderdate < ''1999-01-01'' ');
+     attach_partition
+    ------------------
+     t
+    (1 row)
+    
+    dbt3=# 
 
 
 pgpart.detach_partition
@@ -137,9 +125,7 @@ pgpart.detach_partition
 
 pgpart.detach_partition() function allows to detach a partition from the specified user table.
 
-::
-
- pgpart.detach_partition(schema_name, table_name, partition_name)
+    pgpart.detach_partition(schema_name, table_name, partition_name)
 
 Parameters:
 
@@ -152,15 +138,13 @@ partition_name
 
 Example:
 
-::
-
- dbt3=# SELECT pgpart.detach_partition('public', 'orders', 'orders_1998');
-  detach_partition
- ------------------
-  t
- (1 row)
- 
- dbt3=# 
+    dbt3=# SELECT pgpart.detach_partition('public', 'orders', 'orders_1998');
+     detach_partition
+    ------------------
+     t
+    (1 row)
+    
+    dbt3=# 
 
 
 pgpart.show_partition
@@ -168,9 +152,7 @@ pgpart.show_partition
 
 pgpart.show_partition() function lists partition name(s) which the specified table has.
 
-::
-
- pgpart.show_partition(schema_name, table_name)
+    pgpart.show_partition(schema_name, table_name)
 
 Parameters:
 
@@ -181,18 +163,16 @@ table_name
 
 Example:
 
-::
-
- dbt3=# SELECT pgpart.show_partition('public', 'orders');
-  show_partition
- ----------------
-  orders_1995
-  orders_1996
-  orders_1997
-  orders_1998
- (4 rows)
- 
- dbt3=# 
+    dbt3=# SELECT pgpart.show_partition('public', 'orders');
+     show_partition
+    ----------------
+     orders_1995
+     orders_1996
+     orders_1997
+     orders_1998
+    (4 rows)
+    
+    dbt3=# 
 
 
 Author
