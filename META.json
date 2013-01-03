@@ -1,0 +1,33 @@
+{
+    "name": "pg_part",
+    "abstract": "Table partitioning utility for PostgreSQL",
+    "version": "0.1",
+    "maintainer": "Satoshi Nagayasu <snaga@uptime.jp>",
+    "license": "gpl_2",
+    "provides": {
+        "pg_part": {
+            "file": "pg_part--0.1.sql",
+            "docfile": "README.md",
+            "version": "0.1",
+            "abstract": "Table partitioning extention"
+        }
+    },
+    "resources": {
+        "bugtracker": {
+            "web": "https://github.com/uptimejp/pg_part/issues"
+        },
+        "repository": {
+            "url": "git://github.com/uptimejp/pg_part.git",
+            "web": "https://github.com/uptimejp/pg_part",
+            "type": "git"
+        }
+    },     
+    "meta-spec": {
+        "version": "1.0.0",
+        "url": "http://pgxn.org/meta/spec.txt"
+    },
+    "tags": [
+        "partitioning",
+        "table partitioning"
+    ]
+}
