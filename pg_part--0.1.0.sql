@@ -1,4 +1,4 @@
-/* contrib/pg_part/pg_part--0.1.sql */
+/* contrib/pg_part/pg_part--0.1.0.sql */
 
 -- complain if script is sourced in psql, rather than via CREATE EXTENSION
 \echo Use "CREATE EXTENSION pgpart" to load this file. \quit
