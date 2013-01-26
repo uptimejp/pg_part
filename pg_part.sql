@@ -98,6 +98,53 @@ END;
 ' LANGUAGE 'plpgsql';
 
 --
+-- pgpart.get_index_column_name()
+--
+-- Parse an index definition, detemines column name(s) where the index
+-- to be built.
+--
+-- This name (string) is going to be a part of the index name built
+-- on the new partition.
+--
+CREATE OR REPLACE FUNCTION pgpart._get_index_column_name (
+  TEXT
+) RETURNS TEXT
+AS $$
+DECLARE
+  _indexdef ALIAS FOR $1;
+  _colname TEXT;
+BEGIN
+  -- Removes string before 'USING' clause.
+  --   IN: CREATE INDEX t1_lower_uname_idx ON t1 USING btree (lower(((uname)::name)::text))
+  --  OUT: btree (lower(((uname)::name)::text))
+  _colname = regexp_replace(_indexdef, '.*USING ', '');
+
+  -- Removes index method.
+  --   IN: btree (lower(((uname)::name)::text))
+  --  OUT: (lower(((uname)::name)::text))
+  _colname = regexp_replace(_colname, E'^[^\(]*(.*)[^\)]*$', E'\\1');
+
+  -- Removes type casts.
+  --   IN: (lower(((uname)::name)::text))
+  --  OUT: (lower(((uname))))
+  _colname = regexp_replace(_colname, E'::[\\w]+', '', 'g');
+
+  -- Removes outer blaket(s).
+  --   IN: (lower(((uname))))
+  --  OUT: lower(((uname
+  _colname = regexp_replace(_colname, E'^[\(]*', '');
+  _colname = regexp_replace(_colname, E'[\)]*$', '');
+
+  -- Replace non-alphabet and non-number characters with '_'.
+  --   IN: lower(((uname
+  --  OUT: lower_uname
+  _colname = regexp_replace(_colname, E'[^\\w]+', '_', 'g');
+
+  RETURN _colname;
+END
+$$ LANGUAGE 'plpgsql';
+
+--
 -- pgpart._get_index_def()
 --
 -- Get index definition string(s) for new partition, excepting primary key.
@@ -117,7 +164,7 @@ DECLARE
   _indexdef TEXT;
 BEGIN
   FOR _r IN SELECT indexdef,
-                   replace(regexp_replace(regexp_replace(indexdef, ''.*\('', ''''), ''\).*'', ''''), '', '', ''_'') AS colname
+                   pgpart._get_index_column_name(indexdef) AS colname
               FROM pg_indexes
              WHERE schemaname = _nspname
                AND tablename = _relname

@@ -1,3 +1,6 @@
+--
+-- This test script needs pgTap to perform.
+--
 BEGIN;
 SELECT plan(21);
 
